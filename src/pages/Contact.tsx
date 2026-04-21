@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Phone, Mail, MapPin, ArrowRight, Instagram, Facebook, Linkedin, Tractor } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowRight, Tractor } from 'lucide-react';
 
 export default function Contact() {
   // Scroll to top on load

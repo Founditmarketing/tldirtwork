@@ -23,9 +23,7 @@ import {
   Headset,
   Menu,
   X,
-  Instagram,
-  Facebook,
-  Linkedin,
+
   ChevronLeft,
   ChevronRight,
   MessageSquare,
@@ -384,17 +382,7 @@ function MainLayout() {
                   <MapPin size={18} className="mr-4 text-bronze shrink-0" />
                   <span>683 Highway 459, Olla, LA 71465</span>
                 </div>
-                <div className="flex gap-4 mt-8">
-                   <a href="#" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:border-bronze hover:text-bronze transition-colors">
-                     <Instagram size={20} />
-                   </a>
-                   <a href="#" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:border-bronze hover:text-bronze transition-colors">
-                     <Facebook size={20} />
-                   </a>
-                   <a href="#" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:border-bronze hover:text-bronze transition-colors">
-                     <Linkedin size={20} />
-                   </a>
-                </div>
+
               </div>
             </motion.div>
           )}
@@ -437,7 +425,7 @@ function MainLayout() {
         </motion.div>
 
         {/* Hero Content */}
-        <div className="relative z-10 px-4 md:px-8 lg:px-12 -mt-12 md:mt-20 pb-20 md:pb-0 max-w-6xl pt-8 md:pt-12">
+        <div className="relative z-10 px-4 md:px-8 lg:px-12 mt-4 md:mt-20 pb-20 md:pb-0 max-w-6xl pt-8 md:pt-12">
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
