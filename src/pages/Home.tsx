@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
-import Contact from './pages/Contact';
 import { motion, useScroll, useTransform, AnimatePresence, useInView, animate } from 'motion/react';
 import { 
   Tractor, 
@@ -195,8 +193,7 @@ const FloatingContactWidget = () => {
   );
 };
 
-function MainLayout() {
-  const location = useLocation();
+export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -274,9 +271,9 @@ function MainLayout() {
           <div className="flex items-center w-full">
             {['T & L DIRTWORK', 'SERVICES', 'PROJECTS', 'REVIEWS', 'CONTACT'].map((item, idx) => (
               <React.Fragment key={item}>
-                <Link to={item === 'CONTACT' ? '/contact' : '/'} className={`px-4 hover:text-white transition-colors ${idx === 0 ? 'pl-0 font-bold' : 'text-white/50'}`}>
+                <a href="#" className={`px-4 hover:text-white transition-colors ${idx === 0 ? 'pl-0 font-bold' : 'text-white/50'}`}>
                   {item}
-                </Link>
+                </a>
                 {idx < 4 && <span className="h-4 w-[1px] bg-bronze/40"></span>}
               </React.Fragment>
             ))}
@@ -297,18 +294,18 @@ function MainLayout() {
         <div className="flex items-center justify-between px-4 lg:px-8 py-4">
           <div className="flex items-center gap-4 lg:gap-8">
             {/* Logo Area */}
-            <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
+            <div className="flex items-center">
               <img src="/newt&llogo.png" alt="T & L Dirtwork, Inc." className={`h-10 w-auto object-contain transition-all duration-300 ${isScrolled ? 'lg:h-10' : 'lg:h-14'}`} />
               <div className="ml-4 h-[1px] w-12 bg-bronze hidden lg:block"></div>
-            </Link>
+            </div>
             
             {/* Main Links */}
             <nav className="hidden lg:flex items-center gap-6 text-[11px] font-bold tracking-widest uppercase">
               {['REQUEST A QUOTE', 'OUR SERVICES', 'ABOUT US', 'PROJECTS', 'REVIEWS'].map((item, idx) => (
                 <React.Fragment key={item}>
-                   <Link to={item === 'REQUEST A QUOTE' ? '/contact' : '/'} className={`${idx === 0 ? 'text-bronze' : 'text-white'} hover:text-bronze transition-colors hover:underline underline-offset-4 decoration-bronze/50`}>
+                   <a href="#" className={`${idx === 0 ? 'text-bronze' : 'text-white'} hover:text-bronze transition-colors hover:underline underline-offset-4 decoration-bronze/50`}>
                      {item}
-                   </Link>
+                   </a>
                    {idx < 4 && <span className="h-3 w-[1px] bg-bronze/40"></span>}
                 </React.Fragment>
               ))}
@@ -316,9 +313,9 @@ function MainLayout() {
           </div>
 
           <div className="flex items-center gap-3">
-            <Link to="/contact" className="hidden sm:inline-block bg-bronze text-black text-[10px] lg:text-[11px] font-black px-4 lg:px-6 py-2 lg:py-3 tracking-widest uppercase hover:bg-bronze-dark transition-colors border border-bronze shadow-[0_0_15px_rgba(191,135,79,0.3)]">
+            <button className="hidden sm:block bg-bronze text-black text-[10px] lg:text-[11px] font-black px-4 lg:px-6 py-2 lg:py-3 tracking-widest uppercase hover:bg-bronze-dark transition-colors border border-bronze shadow-[0_0_15px_rgba(191,135,79,0.3)]">
               REQUEST A QUOTE
-            </Link>
+            </button>
             <button 
               onClick={() => setIsMobileMenuOpen(true)}
               className="lg:hidden text-white p-2 hover:text-bronze transition-colors"
@@ -339,9 +336,9 @@ function MainLayout() {
               className="fixed inset-0 w-full h-screen z-[100] bg-[#0a0a0a]/95 backdrop-blur-2xl flex flex-col p-8 border-l border-bronze/20 overflow-y-auto"
             >
               <div className="flex items-center justify-between mb-12">
-                <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center hover:opacity-80 transition-opacity">
+                <div className="flex items-center">
                   <img src="/newt&llogo.png" alt="T & L Dirtwork, Inc." className="h-10 lg:h-12 w-auto object-contain" />
-                </Link>
+                </div>
                 <button 
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="text-white hover:text-bronze transition-colors p-2 cursor-pointer"
@@ -352,14 +349,14 @@ function MainLayout() {
 
               <nav className="flex flex-col gap-6 text-left mb-16 w-full mt-4">
                 {['REQUEST A QUOTE', 'SERVICES', 'PROJECTS', 'REVIEWS', 'ABOUT US', 'CONTACT'].map((item) => (
-                  <Link 
+                  <a 
                     key={item} 
-                    to={item === 'REQUEST A QUOTE' || item === 'CONTACT' ? '/contact' : '/'} 
+                    href="#" 
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block text-[15px] font-bold tracking-[0.2em] uppercase transition-colors w-full border-b border-white/5 pb-4 ${item === 'REQUEST A QUOTE' ? 'text-bronze' : 'text-white hover:text-bronze'}`}
+                    className={`text-[15px] font-bold tracking-[0.2em] uppercase transition-colors w-full border-b border-white/5 pb-4 ${item === 'REQUEST A QUOTE' ? 'text-bronze' : 'text-white hover:text-bronze'}`}
                   >
                     {item}
-                  </Link>
+                  </a>
                 ))}
               </nav>
 
@@ -389,10 +386,7 @@ function MainLayout() {
         </AnimatePresence>
       </header>
 
-      <Routes>
-        <Route path="/" element={
-          <>
-            {/* 2. Hero Section */}
+      {/* 2. Hero Section */}
       <section className="relative h-screen flex flex-col justify-center overflow-hidden">
         {/* Background Parallax */}
         <motion.div 
@@ -783,11 +777,6 @@ function MainLayout() {
         </div>
       </section>
 
-          </>
-        } />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
-
       {/* 9. Footer */}
       <footer className="bg-neutral-950 pt-0 relative z-10">
         
@@ -936,13 +925,5 @@ function MainLayout() {
 
       <FloatingContactWidget />
     </div>
-  );
-}
-
-export default function App() {
-  return (
-    <BrowserRouter>
-      <MainLayout />
-    </BrowserRouter>
   );
 }
