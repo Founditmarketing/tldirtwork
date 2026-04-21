@@ -269,6 +269,18 @@ function MainLayout() {
 
       {/* 1. Header (Navigation) */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-black/95 backdrop-blur-md border-b-[0.5px] border-bronze/30 shadow-2xl' : 'bg-transparent border-b-[0.5px] border-bronze/20'}`}>
+        {/* Mobile Top Nav */}
+        <div className={`sm:hidden flex items-center justify-between px-4 transition-all duration-300 overflow-hidden text-[9px] tracking-widest text-bronze border-b border-bronze/20 ${isScrolled ? 'h-0 opacity-0 pointer-events-none' : 'h-[32px] py-1 opacity-100'}`}>
+          <a href="tel:3189925948" className="flex items-center text-white/80 hover:text-white transition-colors">
+            <Phone size={10} className="mr-1" />
+            (318) 992-5948
+          </a>
+          <div className="flex items-center text-white/80">
+            <MapPin size={10} className="mr-1" />
+            Olla, LA 71465
+          </div>
+        </div>
+        
         {/* Top Nav */}
         <div className={`hidden sm:flex items-center px-8 transition-all duration-300 overflow-hidden text-[10px] tracking-widest text-bronze uppercase border-b border-bronze/20 ${isScrolled ? 'h-0 opacity-0 overflow-hidden border-transparent opacity-0 pointer-events-none' : 'h-[34px] py-2 opacity-100'}`}>
           <div className="flex items-center w-full">
@@ -399,6 +411,7 @@ function MainLayout() {
           style={{ y: heroY }}
           className="absolute inset-0 w-full h-[120%] -top-[10%] z-0"
         >
+          {/* Desktop Video */}
           <video 
             autoPlay 
             loop 
@@ -406,19 +419,25 @@ function MainLayout() {
             playsInline
             defaultMuted
             src="/t&lherobackgroundvideo.mp4" 
-            className="w-full h-full object-cover opacity-60 scale-[1.35] md:scale-[1.25]"
+            className="hidden md:block w-full h-full object-cover opacity-60 scale-[1.25]"
             onCanPlay={(e) => {
               const video = e.target as HTMLVideoElement;
               video.muted = true;
               video.play().catch(() => {});
             }}
           />
+          {/* Mobile Image */}
+          <img 
+            src="/t&lmobilehero.jpeg" 
+            alt="T & L Dirtwork Hero"
+            className="block md:hidden w-full h-full object-cover opacity-60 scale-[1.10]"
+          />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black"></div>
         </motion.div>
 
         {/* Hero Content */}
-        <div className="relative z-10 px-4 md:px-8 lg:px-12 mt-24 md:mt-20 max-w-6xl pt-12 md:pt-12">
+        <div className="relative z-10 px-4 md:px-8 lg:px-12 -mt-12 md:mt-20 pb-20 md:pb-0 max-w-6xl pt-8 md:pt-12">
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
