@@ -404,8 +404,14 @@ function MainLayout() {
             loop 
             muted 
             playsInline
+            defaultMuted
             src="/t&lherobackgroundvideo.mp4" 
             className="w-full h-full object-cover opacity-60 scale-[1.35] md:scale-[1.25]"
+            onCanPlay={(e) => {
+              const video = e.target as HTMLVideoElement;
+              video.muted = true;
+              video.play().catch(() => {});
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black"></div>
