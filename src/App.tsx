@@ -349,7 +349,7 @@ function MainLayout() {
             {['T & L DIRTWORK', 'CAREERS', 'TERMS OF SERVICE', 'PRIVACY POLICY', 'MESSAGE US'].map((item, idx) => (
               <React.Fragment key={item}>
                 <Link 
-                  to={item === 'TERMS OF SERVICE' ? '/terms-of-service' : item === 'PRIVACY POLICY' ? '/privacy-policy' : item === 'MESSAGE US' ? '/contact' : '/'} 
+                  to={item === 'TERMS OF SERVICE' ? '/terms-of-service' : item === 'PRIVACY POLICY' ? '/privacy-policy' : (item === 'MESSAGE US' || item === 'CAREERS') ? '/contact' : '/'} 
                   className={`px-4 hover:text-white transition-colors ${idx === 0 ? 'pl-0 font-bold' : 'text-white/50'}`}
                 >
                   {item}
