@@ -306,7 +306,7 @@ function MainLayout() {
       <motion.header 
         initial={{ opacity: 0, y: -20 }}
         animate={!isLoading ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.8, delay: isLoading ? 0 : 1.0, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${isScrolled ? 'bg-black/95 backdrop-blur-md border-b-[0.5px] border-bronze/30 shadow-2xl' : 'bg-transparent border-b-[0.5px] border-bronze/20'}`}
       >
         {/* Mobile Top Nav */}
@@ -471,7 +471,7 @@ function MainLayout() {
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={!isLoading ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 0.8, delay: isLoading ? 0 : 1.2, ease: "easeOut" }}
             className="flex items-center text-bronze mb-4"
           >
             <span className="w-8 md:w-12 h-[2px] bg-bronze mr-3 md:mr-4"></span>
@@ -480,7 +480,7 @@ function MainLayout() {
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={!isLoading ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+            transition={{ duration: 0.8, delay: isLoading ? 0 : 1.4, ease: "easeOut" }}
             className="font-heading font-black text-4xl sm:text-5xl md:text-6xl lg:text-[64px] leading-[0.9] tracking-tighter mb-4 uppercase"
           >
             YOUR TRUSTED DIRTWORK<br />
@@ -490,7 +490,7 @@ function MainLayout() {
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={!isLoading ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.8, delay: isLoading ? 0 : 1.6, ease: "easeOut" }}
             className="text-base md:text-lg text-white/80 max-w-2xl font-light mb-4 pr-4"
           >
             T & L Dirtwork, Inc. provides expert dirtwork and comprehensive site preparation with hands-on operational knowledge.
@@ -501,7 +501,7 @@ function MainLayout() {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={!isLoading ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          transition={{ duration: 0.8, delay: isLoading ? 0 : 1.8, ease: "easeOut" }}
           className="absolute bottom-0 left-0 w-full z-20"
         >
           <div className="flex flex-row md:grid md:grid-cols-3 bg-black/80 md:bg-black/40 backdrop-blur-md border-t border-b border-bronze/30">
