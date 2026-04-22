@@ -1,6 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Contact from './pages/Contact';
+import About from './pages/About';
+import Dirtwork from './pages/services/Dirtwork';
+import Hauling from './pages/services/Hauling';
+import Aggregate from './pages/services/Aggregate';
+import MarineConstruction from './pages/services/MarineConstruction';
+import Projects from './pages/Projects';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import Reviews from './pages/Reviews';
 import { motion, useScroll, useTransform, AnimatePresence, useInView, animate } from 'motion/react';
 import { 
   Tractor, 
@@ -23,7 +32,7 @@ import {
   Headset,
   Menu,
   X,
-
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   MessageSquare,
@@ -127,7 +136,7 @@ const FloatingContactWidget = () => {
              setIsOpen(!isOpen);
              setShowTooltip(false);
           }}
-          className="bg-bronze hover:bg-bronze-dark text-white rounded-full p-4 lg:p-5 shadow-2xl hover:shadow-[0_10px_30px_rgba(167,54,2,0.4)] transition-all duration-300 transform hover:-translate-y-1 z-50 flex items-center justify-center"
+          className="bg-bronze hover:bg-bronze-dark text-white rounded-full p-4 lg:p-5 transition-all duration-300 transform hover:-translate-y-1 z-50 flex items-center justify-center"
         >
           <motion.div 
             initial={{ rotate: 0 }} 
@@ -201,8 +210,8 @@ const FloatingContactWidget = () => {
                     <div>
                       <textarea placeholder="Tell us about your project..." rows={2} className="w-full bg-white border border-black/10 text-black placeholder:text-neutral-500 text-xs sm:text-sm p-2 sm:p-3 focus:outline-none focus:border-bronze transition-colors resize-none rounded-none" required></textarea>
                     </div>
-                    <button type="submit" className="w-full bg-black text-white hover:bg-bronze transition-colors py-3 sm:py-4 font-heading font-black text-[10px] sm:text-xs tracking-widest uppercase mt-1 sm:mt-2 border-b-2 border-transparent hover:border-bronze-dark rounded-none">
-                       Send Message
+                    <button type="submit" className="w-full group bg-black text-white py-3 sm:py-4 font-heading font-black text-[10px] sm:text-xs tracking-widest uppercase mt-1 sm:mt-2 border-b-2 border-transparent hover:border-bronze-dark rounded-none btn-slide slide-bg-bronze">
+                       <span className="relative z-10">Send Message</span>
                     </button>
                  </form>
               </div>
@@ -219,6 +228,15 @@ function MainLayout() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingPhase, setLoadingPhase] = useState(0);
+  const [hoveredService, setHoveredService] = useState('Dirtwork & Excavation');
+  
+  const serviceImages = {
+    'Dirtwork & Excavation': '/t&ldirtwork.jpeg',
+    'Heavy Hauling': '/t&lhauling.jpeg',
+    'Aggregate Materials': '/t&laggregate.jpeg',
+    'Marine Construction': '/t&lmarineconstruction.jpeg'
+  };
+
   const loadingWords = [
     "DIRTWORK",
     "EXCAVATION",
@@ -260,12 +278,7 @@ function MainLayout() {
   const sectionBgY = useTransform(scrollY, [0, 6000], ["-40%", "40%"]);
   const smallParallaxY = useTransform(scrollY, [0, 6000], ["-15%", "15%"]);
 
-  const ctaRef = useRef<HTMLElement>(null);
-  const { scrollYProgress: ctaScroll } = useScroll({
-    target: ctaRef,
-    offset: ["start end", "end start"]
-  });
-  const ctaImageY = useTransform(ctaScroll, [0, 1], ["-15%", "15%"]);
+  const ctaImageY = useTransform(scrollY, [0, 6000], [0, -400]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -335,7 +348,10 @@ function MainLayout() {
           <div className="flex items-center w-full">
             {['T & L DIRTWORK', 'CAREERS', 'TERMS OF SERVICE', 'PRIVACY POLICY', 'MESSAGE US'].map((item, idx) => (
               <React.Fragment key={item}>
-                <Link to="/" className={`px-4 hover:text-white transition-colors ${idx === 0 ? 'pl-0 font-bold' : 'text-white/50'}`}>
+                <Link 
+                  to={item === 'TERMS OF SERVICE' ? '/terms-of-service' : item === 'PRIVACY POLICY' ? '/privacy-policy' : item === 'MESSAGE US' ? '/contact' : '/'} 
+                  className={`px-4 hover:text-white transition-colors ${idx === 0 ? 'pl-0 font-bold' : 'text-white/50'}`}
+                >
                   {item}
                 </Link>
                 {idx < 4 && <span className="h-4 w-[1px] bg-bronze/40"></span>}
@@ -364,12 +380,88 @@ function MainLayout() {
             </Link>
             
             {/* Main Links */}
-            <nav className="hidden lg:flex items-center gap-6 text-[11px] font-bold tracking-widest uppercase">
+            <nav className="hidden lg:flex items-center gap-6 text-[11px] font-bold tracking-widest uppercase relative">
               {['REQUEST A QUOTE', 'OUR SERVICES', 'ABOUT US', 'PROJECTS', 'REVIEWS'].map((item, idx) => (
                 <React.Fragment key={item}>
-                   <Link to={item === 'REQUEST A QUOTE' ? '/contact' : '/'} className={`${idx === 0 ? 'text-bronze' : 'text-white'} hover:text-bronze transition-colors hover:underline underline-offset-4 decoration-bronze/50`}>
-                     {item}
-                   </Link>
+                   {item === 'OUR SERVICES' ? (
+                     <div className="relative group cursor-default h-full flex items-center">
+                       <span className={`text-white group-hover:text-bronze transition-colors py-4 px-2 -mx-2 flex items-center`}>
+                         {item}
+                         <ChevronDown size={14} className="ml-2 opacity-50 group-hover:rotate-180 transition-transform duration-300" />
+                       </span>
+                       <div className="absolute top-10 left-1/2 -translate-x-1/2 pt-4 w-[900px] opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-300">
+                         <div className="bg-neutral-950 border-t-2 border-bronze flex shadow-2xl shadow-black relative z-[200]">
+                            {/* Left: Dynamic Image Showcase */}
+                            <div className="w-[35%] h-[360px] relative border-r-[0.5px] border-white/10 hidden md:block overflow-hidden">
+                              <AnimatePresence mode="wait">
+                                <motion.img 
+                                  key={hoveredService}
+                                  initial={{ opacity: 0, scale: 1.05 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  exit={{ opacity: 0, scale: 1 }}
+                                  transition={{ duration: 0.3 }}
+                                  src={serviceImages[hoveredService as keyof typeof serviceImages]} 
+                                  className="absolute inset-0 w-full h-full object-cover" 
+                                  alt={hoveredService} 
+                                />
+                              </AnimatePresence>
+                              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+                              <div className="absolute bottom-6 left-6 right-6">
+                                 <span className="text-bronze font-bold tracking-widest uppercase text-[10px] block mb-2">Featured Service</span>
+                                 <h4 className="text-white font-heading font-black text-lg uppercase tracking-widest leading-tight">{hoveredService}</h4>
+                              </div>
+                            </div>
+                          
+                            {/* Middle: 2x2 Service Grid */}
+                            <div className="w-[40%] h-[360px] grid grid-cols-2 grid-rows-2">
+                               {[
+                                 { title: 'Dirtwork & Excavation', path: '/services/dirtwork', icon: Tractor, widthMod: 'w-[18px]' },
+                                 { title: 'Heavy Hauling', path: '/services/hauling', icon: Truck, widthMod: 'w-[18px]' },
+                                 { title: 'Aggregate Materials', path: '/services/aggregate', icon: HardHat, widthMod: 'w-[18px]' },
+                                 { title: 'Marine Construction', path: '/services/marine-construction', icon: Anchor, widthMod: 'w-[18px]' }
+                               ].map((srv, index) => (
+                                 <Link 
+                                   to={srv.path} 
+                                   key={srv.title}
+                                   onMouseEnter={() => setHoveredService(srv.title)}
+                                   className={`flex items-start flex-col p-6 hover:bg-white/5 transition-colors group/link ${index < 2 ? 'border-b-[0.5px] border-white/10' : ''} ${index % 2 === 0 ? 'border-r-[0.5px] border-white/10' : ''}`}
+                                 >
+                                   <srv.icon strokeWidth={1.5} className="text-bronze mb-3 group-hover/link:scale-110 group-hover/link:-translate-y-1 transition-all duration-300 w-8 h-8" />
+                                   <h5 className="text-white font-heading font-bold text-[10px] tracking-[0.15em] uppercase leading-snug">{srv.title}</h5>
+                                 </Link>
+                               ))}
+                            </div>
+                          
+                            {/* Right: Quick Contact */}
+                            <div className="w-[25%] bg-neutral-900/50 p-6 flex flex-col border-b-[0.5px] border-white/10 justify-between">
+                              <div>
+                                <h5 className="text-white font-heading font-black text-[10px] tracking-[0.2em] uppercase mb-6 flex items-center">
+                                   <span className="w-2 h-[2px] bg-bronze mr-3"></span>
+                                   Contact Us
+                                </h5>
+                                <div className="space-y-6 text-white/70 text-xs">
+                                   <a href="tel:3189925948" className="flex items-start hover:text-bronze transition-colors group/contact">
+                                     <Phone size={14} className="mr-3 text-bronze mt-0.5" />
+                                     <span className="group-hover/contact:translate-x-1 transition-transform tracking-wider">(318) 992-5948</span>
+                                   </a>
+                                   <div className="flex items-start">
+                                     <MapPin size={14} className="mr-3 text-bronze mt-0.5 shrink-0" />
+                                     <span className="leading-relaxed tracking-wider">683 Hwy 459<br/>Olla, LA 71465</span>
+                                   </div>
+                                </div>
+                              </div>
+                              <Link to="/contact" className="mt-8 text-bronze text-[9px] font-bold tracking-widest hover:text-black hover:bg-bronze transition-all uppercase py-3 border border-bronze/50 text-center">
+                                Get a Quote
+                              </Link>
+                            </div>
+                         </div>
+                       </div>
+                     </div>
+                   ) : (
+                     <Link to={item === 'REQUEST A QUOTE' ? '/contact' : item === 'ABOUT US' ? '/about' : item === 'PROJECTS' ? '/projects' : item === 'REVIEWS' ? '/reviews' : '/'} className={`${idx === 0 ? 'text-bronze' : 'text-white'} hover:text-bronze transition-colors hover:underline underline-offset-4 decoration-bronze/50`}>
+                       {item}
+                     </Link>
+                   )}
                    {idx < 4 && <span className="h-3 w-[1px] bg-bronze/40"></span>}
                 </React.Fragment>
               ))}
@@ -377,8 +469,8 @@ function MainLayout() {
           </div>
 
           <div className="flex items-center gap-3">
-            <Link to="/contact" className="hidden sm:inline-block bg-bronze text-black text-[10px] lg:text-[11px] font-black px-4 lg:px-6 py-2 lg:py-3 tracking-widest uppercase hover:bg-bronze-dark transition-colors border border-bronze shadow-[0_0_15px_rgba(191,135,79,0.3)]">
-              REQUEST A QUOTE
+            <Link to="/contact" className="hidden sm:inline-block bg-bronze text-black text-[10px] lg:text-[11px] font-black px-4 lg:px-6 py-2 lg:py-3 tracking-widest uppercase border border-bronze btn-slide slide-bg-black hover:text-white">
+              <span className="relative z-10">REQUEST A QUOTE</span>
             </Link>
             <button 
               onClick={() => setIsMobileMenuOpen(true)}
@@ -413,14 +505,29 @@ function MainLayout() {
 
               <nav className="flex flex-col gap-6 text-left mb-16 w-full mt-4">
                 {['REQUEST A QUOTE', 'SERVICES', 'PROJECTS', 'REVIEWS', 'ABOUT US', 'CONTACT'].map((item) => (
-                  <Link 
-                    key={item} 
-                    to={item === 'REQUEST A QUOTE' || item === 'CONTACT' ? '/contact' : '/'} 
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`block text-[15px] font-bold tracking-[0.2em] uppercase transition-colors w-full border-b border-white/5 pb-4 ${item === 'REQUEST A QUOTE' ? 'text-bronze' : 'text-white hover:text-bronze'}`}
-                  >
-                    {item}
-                  </Link>
+                  <React.Fragment key={item}>
+                    {item === 'SERVICES' ? (
+                      <div className="flex flex-col w-full border-b border-white/5 pb-6">
+                        <span className="block text-[15px] font-bold tracking-[0.2em] uppercase text-white/50 mb-6 cursor-default">
+                          {item}
+                        </span>
+                        <div className="flex flex-col gap-5 pl-4 border-l border-bronze/30 ml-2">
+                           <Link to="/services/dirtwork" onClick={() => setIsMobileMenuOpen(false)} className="text-white hover:text-bronze text-xs tracking-[0.2em] uppercase font-bold">DIRTWORK & EXCAVATION</Link>
+                           <Link to="/services/hauling" onClick={() => setIsMobileMenuOpen(false)} className="text-white hover:text-bronze text-xs tracking-[0.2em] uppercase font-bold">HEAVY HAULING</Link>
+                           <Link to="/services/aggregate" onClick={() => setIsMobileMenuOpen(false)} className="text-white hover:text-bronze text-xs tracking-[0.2em] uppercase font-bold">AGGREGATE</Link>
+                           <Link to="/services/marine-construction" onClick={() => setIsMobileMenuOpen(false)} className="text-white hover:text-bronze text-xs tracking-[0.2em] uppercase font-bold">MARINE CONSTRUCTION</Link>
+                        </div>
+                      </div>
+                    ) : (
+                      <Link 
+                        to={item === 'REQUEST A QUOTE' || item === 'CONTACT' ? '/contact' : item === 'ABOUT US' ? '/about' : item === 'PROJECTS' ? '/projects' : item === 'REVIEWS' ? '/reviews' : '/'}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`block text-[15px] font-bold tracking-[0.2em] uppercase transition-colors w-full border-b border-white/5 pb-4 ${item === 'REQUEST A QUOTE' ? 'text-bronze' : 'text-white hover:text-bronze'}`}
+                      >
+                        {item}
+                      </Link>
+                    )}
+                  </React.Fragment>
                 ))}
               </nav>
 
@@ -842,8 +949,8 @@ function MainLayout() {
                <p className="text-white font-medium max-w-xl text-sm md:text-base mb-8 drop-shadow-sm leading-relaxed">
                   Watch our heavy machinery and seasoned crew lay the groundwork for some of the region's toughest contracts. We handle all phases of site preparation with absolute precision and expertise.
                </p>
-               <button className="bg-black hover:bg-neutral-900 text-white hover:text-white font-heading font-black tracking-widest uppercase text-xs px-8 py-4 border border-transparent shadow-[0_10px_20px_rgba(0,0,0,0.4)] transition-all active:scale-95">
-                  OUR SERVICES
+               <button className="bg-black text-white hover:text-bronze font-heading font-black tracking-widest uppercase text-xs px-8 py-4 border border-transparent transition-all active:scale-95 btn-slide slide-bg-white">
+                  <span className="relative z-10">OUR SERVICES</span>
                </button>
             </motion.div>
 
@@ -880,7 +987,7 @@ function MainLayout() {
       </section>
 
       {/* 8. Call to Action */}
-      <section ref={ctaRef} className="relative py-32 bg-black overflow-hidden flex items-center justify-center border-y border-bronze/30">
+      <section className="relative py-32 bg-black overflow-hidden flex items-center justify-center border-y border-bronze/30">
         <div className="absolute inset-0 opacity-40 overflow-hidden">
           <motion.img style={{ y: ctaImageY }} src="/t&ldirtworkimage3.jpeg" alt="Sunset Port" className="absolute left-0 w-full h-[130%] -top-[15%] object-cover" referrerPolicy="no-referrer" />
           <div className="absolute inset-0 bg-black/60 mix-blend-multiply"></div>
@@ -894,11 +1001,11 @@ function MainLayout() {
             Connect with T & L Dirtwork, Inc. for expert site preparation, hauling, and marine construction services.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="bg-bronze hover:bg-white hover:text-black text-white font-heading font-bold tracking-widest text-sm px-10 py-5 transition-colors border border-bronze hover:border-white">
-              CONTACT OUR TEAM
+            <button className="bg-bronze text-white hover:text-black font-heading font-bold tracking-widest text-sm px-10 py-5 border border-bronze hover:border-white btn-slide slide-bg-white">
+              <span className="relative z-10">CONTACT OUR TEAM</span>
             </button>
-            <button className="bg-transparent hover:bg-bronze text-white font-heading font-bold tracking-widest text-sm px-10 py-5 transition-colors border border-bronze">
-              OUR SERVICES
+            <button className="bg-transparent text-white font-heading font-bold tracking-widest text-sm px-10 py-5 border border-bronze btn-slide slide-bg-bronze">
+              <span className="relative z-10">OUR SERVICES</span>
             </button>
           </div>
         </div>
@@ -935,6 +1042,15 @@ function MainLayout() {
           </>
         } />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services/dirtwork" element={<Dirtwork />} />
+        <Route path="/services/hauling" element={<Hauling />} />
+        <Route path="/services/aggregate" element={<Aggregate />} />
+        <Route path="/services/marine-construction" element={<MarineConstruction />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/reviews" element={<Reviews />} />
       </Routes>
 
       {/* 9. Footer */}
@@ -959,10 +1075,10 @@ function MainLayout() {
             <div>
                <h4 className="text-white font-heading font-bold tracking-widest text-sm uppercase mb-6">Quick Links</h4>
                <ul className="space-y-3 text-neutral-400 font-light text-sm">
-                 <li><a href="#" className="hover:text-bronze transition-colors">New Equipment</a></li>
-                 <li><a href="#" className="hover:text-bronze transition-colors">Used Equipment</a></li>
-                 <li><a href="#" className="hover:text-bronze transition-colors">Sell Your Equipment</a></li>
-                 <li><a href="#" className="hover:text-bronze transition-colors">About the Partners</a></li>
+                 <li><Link to="/about" className="hover:text-bronze transition-colors">About T & L</Link></li>
+                 <li><Link to="/projects" className="hover:text-bronze transition-colors">Project Portfolio</Link></li>
+                 <li><Link to="/contact" className="hover:text-bronze transition-colors">Request a Quote</Link></li>
+                 <li><Link to="/" className="hover:text-bronze transition-colors">Back to Home</Link></li>
                </ul>
             </div>
 
@@ -1013,9 +1129,9 @@ function MainLayout() {
                  />
                  <button 
                    type="button" 
-                   className="bg-bronze hover:bg-white hover:text-black text-white font-bold tracking-widest text-[10px] uppercase py-3 transition-colors mt-1 border border-transparent hover:border-white w-full"
+                   className="bg-bronze text-white hover:text-black font-bold tracking-widest text-[10px] uppercase py-3 transition-colors mt-1 border border-transparent w-full btn-slide slide-bg-white"
                  >
-                   Send Message
+                   <span className="relative z-10">Send Message</span>
                  </button>
                </form>
             </div>
@@ -1026,9 +1142,9 @@ function MainLayout() {
         {/* Copyright */}
         <div className="max-w-[1600px] mx-auto px-8 py-8 md:pb-8 pb-24 flex flex-col md:flex-row items-center justify-between text-neutral-600 text-xs font-light">
           <p>&copy; {new Date().getFullYear()} T & L Dirtwork, Inc. All Rights Reserved.</p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+          <div className="flex space-x-6 mt-4 md:mt-0 items-center">
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>
           </div>
         </div>
 

@@ -87,8 +87,8 @@ export default function Contact() {
                      <textarea rows={4} className="w-full bg-black/50 border border-white/10 p-4 font-light text-white focus:outline-none focus:border-bronze transition-colors resize-none" placeholder="Provide some background on your site needs..."></textarea>
                  </div>
 
-                 <button className="bg-bronze hover:bg-white hover:text-black transition-colors border border-transparent hover:border-white text-white font-heading font-black tracking-widest text-xs uppercase px-12 py-5 w-full md:w-auto mt-4 shadow-[0_10px_30px_rgba(167,54,2,0.3)]">
-                   Submit Inquiry
+                 <button className="bg-bronze text-white hover:text-black border border-transparent font-heading font-black tracking-widest text-xs uppercase px-12 py-5 w-full md:w-auto mt-4 btn-slide slide-bg-white">
+                   <span className="relative z-10">Submit Inquiry</span>
                  </button>
                </form>
             </div>
