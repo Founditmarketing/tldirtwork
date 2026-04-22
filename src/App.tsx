@@ -303,7 +303,12 @@ function MainLayout() {
       </AnimatePresence>
 
       {/* 1. Header (Navigation) */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-black/95 backdrop-blur-md border-b-[0.5px] border-bronze/30 shadow-2xl' : 'bg-transparent border-b-[0.5px] border-bronze/20'}`}>
+      <motion.header 
+        initial={{ opacity: 0, y: -20 }}
+        animate={!isLoading ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${isScrolled ? 'bg-black/95 backdrop-blur-md border-b-[0.5px] border-bronze/30 shadow-2xl' : 'bg-transparent border-b-[0.5px] border-bronze/20'}`}
+      >
         {/* Mobile Top Nav */}
         <div className={`sm:hidden flex items-center justify-between px-4 transition-all duration-300 overflow-hidden text-[9px] tracking-widest text-bronze border-b border-bronze/20 ${isScrolled ? 'h-0 opacity-0 pointer-events-none' : 'h-[32px] py-1 opacity-100'}`}>
           <a href="tel:3189925948" className="flex items-center text-white/80 hover:text-white transition-colors">
@@ -424,7 +429,7 @@ function MainLayout() {
             </motion.div>
           )}
         </AnimatePresence>
-      </header>
+      </motion.header>
 
       <Routes>
         <Route path="/" element={
@@ -465,7 +470,7 @@ function MainLayout() {
         <div className="relative z-10 px-4 md:px-8 lg:px-12 mt-4 md:mt-20 pb-20 md:pb-0 max-w-6xl pt-8 md:pt-12">
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+            animate={!isLoading ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex items-center text-bronze mb-4"
           >
@@ -474,8 +479,8 @@ function MainLayout() {
           </motion.div>
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            animate={!isLoading ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
             className="font-heading font-black text-4xl sm:text-5xl md:text-6xl lg:text-[64px] leading-[0.9] tracking-tighter mb-4 uppercase"
           >
             YOUR TRUSTED DIRTWORK<br />
@@ -484,7 +489,7 @@ function MainLayout() {
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={!isLoading ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="text-base md:text-lg text-white/80 max-w-2xl font-light mb-4 pr-4"
           >
@@ -493,7 +498,12 @@ function MainLayout() {
         </div>
 
         {/* Hero Cards Section */}
-        <div className="absolute bottom-0 left-0 w-full z-20">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={!isLoading ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          className="absolute bottom-0 left-0 w-full z-20"
+        >
           <div className="flex flex-row md:grid md:grid-cols-3 bg-black/80 md:bg-black/40 backdrop-blur-md border-t border-b border-bronze/30">
             {/* Card 1 */}
             <div className="flex-1 md:w-auto p-3 md:p-8 border-r md:border-b-0 border-bronze/20 group cursor-pointer duration-500 ease-out hover:bg-bronze-dark hover:-translate-y-1 hover:shadow-[0_-5px_30px_rgba(167,54,2,0.15)] relative overflow-hidden flex flex-col items-center md:items-start text-center md:text-left justify-center pb-5 md:pb-8 transition-all">
@@ -534,7 +544,7 @@ function MainLayout() {
                <span className="hidden md:inline-block border-b border-bronze pb-1 text-[10px] font-bold uppercase tracking-widest text-bronze group-hover:text-white group-hover:border-white transition-colors relative z-10">Learn More</span>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* 3. Banner Hook - Infinite Marquee */}
