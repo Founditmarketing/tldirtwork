@@ -198,10 +198,10 @@ function MainLayout() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingPhase, setLoadingPhase] = useState(0);
-  const loadingPhrases = [
-    "PREPARING YOUR SITE",
-    "DEPLOYING HEAVY EQUIPMENT",
-    "LAYING THE GROUNDWORK"
+  const loadingWords = [
+    "DIRTWORK",
+    "EXCAVATION",
+    "SITE PREP"
   ];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -218,10 +218,10 @@ function MainLayout() {
 
   useEffect(() => {
     const totalDuration = 3600;
-    const intervalDuration = totalDuration / loadingPhrases.length;
+    const intervalDuration = totalDuration / loadingWords.length;
     
     const interval = setInterval(() => {
-      setLoadingPhase(prev => Math.min(prev + 1, loadingPhrases.length - 1));
+      setLoadingPhase(prev => Math.min(prev + 1, loadingWords.length - 1));
     }, intervalDuration);
 
     const timer = setTimeout(() => {
@@ -266,23 +266,26 @@ function MainLayout() {
             className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center overflow-hidden px-4"
           >
             <div className="relative inline-flex flex-col items-center justify-center px-6 md:px-16 pb-6 md:pb-8 pt-2">
-              <div className="relative h-12 md:h-20 flex items-center justify-center overflow-hidden w-[300px] sm:w-[450px] md:w-[700px]">
-                <AnimatePresence mode="popLayout">
-                  <motion.div
-                    key={loadingPhase}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -30 }}
-                    transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-                    className="absolute font-heading font-black text-sm sm:text-2xl md:text-4xl tracking-[0.2em] text-white uppercase text-center whitespace-nowrap"
-                  >
-                    {loadingPhrases[loadingPhase].split(' ').map((word, i, arr) => (
-                      <span key={i} className={i === arr.length - 1 ? 'text-bronze' : ''}>
-                        {word}{i !== arr.length - 1 ? ' ' : ''}
-                      </span>
-                    ))}
-                  </motion.div>
-                </AnimatePresence>
+              <div className="relative h-12 md:h-20 flex items-center justify-center w-full max-w-[800px]">
+                 <div className="flex items-center text-left">
+                   <span className="font-heading font-black text-sm sm:text-2xl md:text-4xl tracking-[0.2em] text-white uppercase whitespace-nowrap z-10 relative">
+                      DELIVERING EXPERT&nbsp;
+                   </span>
+                   <div className="relative h-12 md:h-20 flex items-center justify-start overflow-hidden min-w-[120px] sm:min-w-[180px] md:min-w-[280px]">
+                      <AnimatePresence mode="popLayout">
+                        <motion.div
+                          key={loadingPhase}
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -30 }}
+                          transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+                          className="absolute left-0 font-heading font-black text-sm sm:text-2xl md:text-4xl tracking-[0.2em] text-bronze uppercase whitespace-nowrap"
+                        >
+                          {loadingWords[loadingPhase]}
+                        </motion.div>
+                      </AnimatePresence>
+                   </div>
+                 </div>
               </div>
               
               {/* Underline Load Bar */}
