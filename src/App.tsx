@@ -199,9 +199,9 @@ function MainLayout() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingPhase, setLoadingPhase] = useState(0);
   const loadingPhrases = [
-    "PREPARING YOUR SITE...",
-    "DEPLOYING HEAVY EQUIPMENT...",
-    "LAYING THE GROUNDWORK..."
+    "PREPARING YOUR SITE",
+    "DEPLOYING HEAVY EQUIPMENT",
+    "LAYING THE GROUNDWORK"
   ];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -274,9 +274,13 @@ function MainLayout() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -30 }}
                     transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-                    className="absolute font-heading font-black text-xs sm:text-base md:text-2xl tracking-[0.2em] text-bronze uppercase text-center whitespace-nowrap"
+                    className="absolute font-heading font-black text-sm sm:text-2xl md:text-4xl tracking-[0.2em] text-white uppercase text-center whitespace-nowrap"
                   >
-                    {loadingPhrases[loadingPhase]}
+                    {loadingPhrases[loadingPhase].split(' ').map((word, i, arr) => (
+                      <span key={i} className={i === arr.length - 1 ? 'text-bronze' : ''}>
+                        {word}{i !== arr.length - 1 ? ' ' : ''}
+                      </span>
+                    ))}
                   </motion.div>
                 </AnimatePresence>
               </div>
