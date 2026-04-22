@@ -243,6 +243,7 @@ function MainLayout() {
     "SITE PREP"
   ];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -507,16 +508,31 @@ function MainLayout() {
                 {['REQUEST A QUOTE', 'SERVICES', 'PROJECTS', 'REVIEWS', 'ABOUT US', 'CONTACT'].map((item) => (
                   <React.Fragment key={item}>
                     {item === 'SERVICES' ? (
-                      <div className="flex flex-col w-full border-b border-white/5 pb-6">
-                        <span className="block text-[15px] font-bold tracking-[0.2em] uppercase text-white/50 mb-6 cursor-default">
+                      <div className="flex flex-col w-full border-b border-white/5 pb-4">
+                        <button 
+                          onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
+                          className={`flex items-center justify-between w-full text-[15px] font-bold tracking-[0.2em] uppercase transition-colors cursor-pointer ${isMobileServicesOpen ? 'text-bronze' : 'text-white hover:text-bronze'}`}
+                        >
                           {item}
-                        </span>
-                        <div className="flex flex-col gap-5 pl-4 border-l border-bronze/30 ml-2">
-                           <Link to="/services/dirtwork" onClick={() => setIsMobileMenuOpen(false)} className="text-white hover:text-bronze text-xs tracking-[0.2em] uppercase font-bold">DIRTWORK & EXCAVATION</Link>
-                           <Link to="/services/hauling" onClick={() => setIsMobileMenuOpen(false)} className="text-white hover:text-bronze text-xs tracking-[0.2em] uppercase font-bold">HEAVY HAULING</Link>
-                           <Link to="/services/aggregate" onClick={() => setIsMobileMenuOpen(false)} className="text-white hover:text-bronze text-xs tracking-[0.2em] uppercase font-bold">AGGREGATE</Link>
-                           <Link to="/services/marine-construction" onClick={() => setIsMobileMenuOpen(false)} className="text-white hover:text-bronze text-xs tracking-[0.2em] uppercase font-bold">MARINE CONSTRUCTION</Link>
-                        </div>
+                          <ChevronDown size={16} className={`transition-transform duration-300 ${isMobileServicesOpen ? 'rotate-180 text-bronze' : 'text-white/50'}`} />
+                        </button>
+                        <AnimatePresence>
+                          {isMobileServicesOpen && (
+                            <motion.div 
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              className="overflow-hidden"
+                            >
+                              <div className="flex flex-col gap-6 pl-4 border-l border-bronze/30 ml-2 mt-6 mb-4">
+                                 <Link to="/services/dirtwork" onClick={() => setIsMobileMenuOpen(false)} className="text-white hover:text-bronze text-[11px] tracking-[0.2em] uppercase font-bold transition-colors">DIRTWORK & EXCAVATION</Link>
+                                 <Link to="/services/hauling" onClick={() => setIsMobileMenuOpen(false)} className="text-white hover:text-bronze text-[11px] tracking-[0.2em] uppercase font-bold transition-colors">HEAVY HAULING</Link>
+                                 <Link to="/services/aggregate" onClick={() => setIsMobileMenuOpen(false)} className="text-white hover:text-bronze text-[11px] tracking-[0.2em] uppercase font-bold transition-colors">AGGREGATE</Link>
+                                 <Link to="/services/marine-construction" onClick={() => setIsMobileMenuOpen(false)} className="text-white hover:text-bronze text-[11px] tracking-[0.2em] uppercase font-bold transition-colors">MARINE CONSTRUCTION</Link>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
                     ) : (
                       <Link 
