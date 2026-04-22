@@ -266,12 +266,12 @@ function MainLayout() {
             className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center overflow-hidden px-4"
           >
             <div className="relative inline-flex flex-col items-center justify-center px-6 md:px-16 pb-6 md:pb-8 pt-2">
-              <div className="relative h-12 md:h-20 flex items-center justify-center w-full max-w-[800px]">
+              <div className="relative h-12 md:h-20 flex items-center justify-center w-full min-w-max">
                  <div className="flex items-center text-left">
                    <span className="font-heading font-black text-sm sm:text-2xl md:text-4xl tracking-[0.2em] text-white uppercase whitespace-nowrap z-10 relative">
                       DELIVERING EXPERT&nbsp;
                    </span>
-                   <div className="relative h-12 md:h-20 flex items-center justify-start overflow-hidden min-w-[120px] sm:min-w-[180px] md:min-w-[280px]">
+                   <div className="relative h-12 md:h-20 flex items-center justify-start min-w-[170px] sm:min-w-[240px] md:min-w-[380px]">
                       <AnimatePresence mode="popLayout">
                         <motion.div
                           key={loadingPhase}
@@ -294,7 +294,7 @@ function MainLayout() {
                   initial={{ x: "-100%" }}
                   animate={{ x: "0%" }}
                   transition={{ duration: 3.6, ease: "linear" }}
-                  className="absolute inset-0 bg-bronze shadow-[0_0_15px_rgba(191,135,79,0.8)] rounded-full"
+                  className="absolute inset-0 bg-bronze opacity-60 shadow-[0_0_8px_rgba(191,135,79,0.3)] rounded-full"
                 />
               </div>
             </div>
