@@ -285,19 +285,19 @@ function MainLayout() {
             transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center overflow-hidden px-4"
           >
-            <div className="relative inline-flex flex-row items-center justify-center px-6 md:px-16 pb-0 pt-0">
-               <span className="font-heading font-black text-sm sm:text-2xl md:text-4xl tracking-[0.2em] text-white uppercase whitespace-nowrap">
-                  DELIVERING EXPERT&nbsp;
+            <div className="relative flex flex-col md:flex-row items-center justify-center px-6 md:px-16 pb-0 pt-0 text-center">
+               <span className="font-heading font-black text-[16px] sm:text-2xl md:text-4xl tracking-[0.2em] text-white uppercase whitespace-nowrap mb-0 md:mb-0">
+                  DELIVERING EXPERT<span className="hidden md:inline">&nbsp;</span>
                </span>
-               <div className="relative h-12 md:h-24 flex items-center justify-start w-[140px] sm:w-[250px] md:w-[400px]">
+               <div className="relative h-6 md:h-24 flex items-center justify-center md:justify-start w-full md:w-[400px]">
                   <AnimatePresence mode="popLayout">
                     <motion.div
                       key={loadingPhase}
-                      initial={{ opacity: 0, y: 30 }}
+                      initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -30 }}
+                      exit={{ opacity: 0, y: -20 }}
                       transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-                      className="absolute left-0 font-heading font-black text-sm sm:text-2xl md:text-4xl tracking-[0.2em] text-bronze uppercase whitespace-nowrap"
+                      className="absolute left-[50%] -translate-x-[50%] md:left-0 md:translate-x-0 font-heading font-black text-[20px] sm:text-2xl md:text-4xl tracking-[0.2em] text-bronze uppercase whitespace-nowrap w-full"
                     >
                       {loadingWords[loadingPhase]}
                     </motion.div>
