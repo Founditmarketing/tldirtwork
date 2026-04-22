@@ -282,9 +282,9 @@ function MainLayout() {
         {/* Top Nav */}
         <div className={`hidden sm:flex items-center px-8 transition-all duration-300 overflow-hidden text-[10px] tracking-widest text-bronze uppercase border-b border-bronze/20 ${isScrolled ? 'h-0 opacity-0 overflow-hidden border-transparent opacity-0 pointer-events-none' : 'h-[34px] py-2 opacity-100'}`}>
           <div className="flex items-center w-full">
-            {['T & L DIRTWORK', 'SERVICES', 'PROJECTS', 'REVIEWS', 'CONTACT'].map((item, idx) => (
+            {['T & L DIRTWORK', 'CAREERS', 'TERMS OF SERVICE', 'PRIVACY POLICY', 'MESSAGE US'].map((item, idx) => (
               <React.Fragment key={item}>
-                <Link to={item === 'CONTACT' ? '/contact' : '/'} className={`px-4 hover:text-white transition-colors ${idx === 0 ? 'pl-0 font-bold' : 'text-white/50'}`}>
+                <Link to="/" className={`px-4 hover:text-white transition-colors ${idx === 0 ? 'pl-0 font-bold' : 'text-white/50'}`}>
                   {item}
                 </Link>
                 {idx < 4 && <span className="h-4 w-[1px] bg-bronze/40"></span>}
