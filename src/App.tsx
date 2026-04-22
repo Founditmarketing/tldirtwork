@@ -451,7 +451,7 @@ function MainLayout() {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="text-base md:text-lg text-white/80 max-w-2xl font-light mb-4 pr-4"
           >
-            T & L Dirtwork, Inc. Your expert in heavy equipment trading and hands-on operational knowledge.
+            T & L Dirtwork, Inc. provides expert dirtwork and comprehensive site preparation with hands-on operational knowledge.
           </motion.p>
         </div>
 
@@ -500,11 +500,31 @@ function MainLayout() {
         </div>
       </section>
 
-      {/* 3. Banner Hook */}
-      <section className="bg-[linear-gradient(90deg,#000_0%,#111_50%,#000_100%)] border-y border-bronze/20 py-4 md:py-8 flex justify-center items-center overflow-hidden">
-        <p className="text-[10px] sm:text-[12px] md:text-[24px] font-heading font-black tracking-[.15em] md:tracking-[.25em] text-bronze uppercase opacity-90 text-center px-4 max-w-[90%] md:max-w-none md:whitespace-nowrap md:truncate leading-relaxed">
-          YOUR TRUSTED DIRTWORK PARTNER FOR OVER 24 YEARS
-        </p>
+      {/* 3. Banner Hook - Infinite Marquee */}
+      <section className="bg-[linear-gradient(90deg,#000_0%,#111_50%,#000_100%)] border-y border-bronze/20 py-4 md:py-8 flex overflow-hidden w-full items-center relative">
+         <motion.div 
+           className="flex whitespace-nowrap"
+           animate={{ x: ["0%", "-50%"] }}
+           transition={{ ease: "linear", duration: 40, repeat: Infinity }}
+         >
+           {/* Duplicate the sequence to ensure a flawless loop jump at exactly 50% translation */}
+           {[1, 2, 3, 4].map((i) => (
+             <div key={i} className="flex items-center">
+               <p className="text-[12px] sm:text-[14px] md:text-[24px] font-heading font-black tracking-[.2em] md:tracking-[.25em] text-bronze uppercase opacity-90 px-4 md:px-8 mx-2 md:mx-4 leading-none">
+                 YOUR TRUSTED DIRTWORK PARTNER FOR OVER 25 YEARS
+               </p>
+               <span className="text-white/20 px-2 md:px-4">•</span>
+               <p className="text-[12px] sm:text-[14px] md:text-[24px] font-heading font-black tracking-[.2em] md:tracking-[.25em] text-bronze uppercase opacity-90 px-4 md:px-8 mx-2 md:mx-4 leading-none">
+                 PREMIER DIRTWORK & CONTRACTING
+               </p>
+               <span className="text-white/20 px-2 md:px-4">•</span>
+               <p className="text-[12px] sm:text-[14px] md:text-[24px] font-heading font-black tracking-[.2em] md:tracking-[.25em] text-bronze uppercase opacity-90 px-4 md:px-8 mx-2 md:mx-4 leading-none">
+                 COMPREHENSIVE SITE PREPARATION
+               </p>
+               <span className="text-white/20 px-2 md:px-4">•</span>
+             </div>
+           ))}
+         </motion.div>
       </section>
 
       {/* 4. About Us Section */}
@@ -815,7 +835,7 @@ function MainLayout() {
                </div>
                <p className="text-bronze font-heading font-bold tracking-widest text-xs uppercase mb-6">Experience. Integrity. Value.</p>
                <p className="text-neutral-500 font-light text-sm max-w-xs">
-                 Heavy equipment trading experts based in South Mississippi.
+                 Expert dirtwork, clearing, and site preparation contractors based in Olla, LA.
                </p>
             </div>
 
