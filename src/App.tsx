@@ -27,7 +27,8 @@ import {
   ChevronLeft,
   ChevronRight,
   MessageSquare,
-  PhoneCall
+  PhoneCall,
+  Play
 } from 'lucide-react';
 
 const AnimatedCounter = ({ from, to, duration, suffix = "" }: { from: number, to: number, duration: number, suffix?: string }) => {
@@ -226,6 +227,8 @@ function MainLayout() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const galleryImages = [
     "/t&ldirtworkgallery.jpg",
@@ -816,6 +819,66 @@ function MainLayout() {
         </div>
       </section>
 
+      {/* 7.5. Video Spotlight Banner */}
+      <section className="relative py-12 md:py-16 bg-bronze overflow-hidden border-y border-black/20 shadow-inner">
+        <div className="max-w-[1600px] mx-auto px-4 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+            {/* Content Column */}
+            <motion.div 
+               initial={{ opacity: 0, x: -30 }}
+               whileInView={{ opacity: 1, x: 0 }}
+               viewport={{ once: true }}
+               transition={{ duration: 0.8 }}
+               className="text-left"
+            >
+               <div className="flex items-center text-black/60 mb-3 md:mb-4">
+                  <span className="w-8 md:w-12 h-[2px] bg-black/60 mr-3 md:mr-4"></span>
+                  <span className="font-bold tracking-widest uppercase text-[9px] md:text-[11px]">Project Highlights</span>
+               </div>
+               <h2 className="font-heading font-black text-3xl md:text-4xl lg:text-5xl tracking-tighter uppercase text-white mb-4 drop-shadow-md">
+                  SEE US IN ACTION
+               </h2>
+               <div className="w-16 h-1 bg-white mb-6 shadow-sm"></div>
+               <p className="text-white font-medium max-w-xl text-sm md:text-base mb-8 drop-shadow-sm leading-relaxed">
+                  Watch our heavy machinery and seasoned crew lay the groundwork for some of the region's toughest contracts. We handle all phases of site preparation with absolute precision and expertise.
+               </p>
+               <button className="bg-black hover:bg-neutral-900 text-white hover:text-white font-heading font-black tracking-widest uppercase text-xs px-8 py-4 border border-transparent shadow-[0_10px_20px_rgba(0,0,0,0.4)] transition-all active:scale-95">
+                  OUR SERVICES
+               </button>
+            </motion.div>
+
+            {/* Video Column */}
+            <motion.div
+               initial={{ opacity: 0, scale: 0.95 }}
+               whileInView={{ opacity: 1, scale: 1 }}
+               viewport={{ once: true }}
+               transition={{ duration: 0.8, delay: 0.2 }}
+               className="w-full aspect-video bg-black border border-black/20 relative group overflow-hidden"
+            >
+               <video 
+                  ref={videoRef}
+                  src="/TL.mp4" 
+                  controls 
+                  onPlay={() => setIsVideoPlaying(true)}
+                  onPause={() => setIsVideoPlaying(false)}
+                  className="w-full h-full object-cover"
+               ></video>
+               {/* Custom Play Overlay */}
+               {!isVideoPlaying && (
+                 <div 
+                   className="absolute inset-0 flex items-center justify-center bg-black/40 cursor-pointer transition-opacity"
+                   onClick={() => videoRef.current?.play()}
+                 >
+                    <div className="w-20 h-20 bg-white/10 backdrop-blur-md border border-white/20 text-white flex items-center justify-center rounded-full transition-all duration-300 hover:bg-white/20 hover:scale-105 shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
+                       <Play size={32} fill="currentColor" strokeWidth={1.5} className="ml-1" />
+                    </div>
+                 </div>
+               )}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* 8. Call to Action */}
       <section ref={ctaRef} className="relative py-32 bg-black overflow-hidden flex items-center justify-center border-y border-bronze/30">
         <div className="absolute inset-0 opacity-40 overflow-hidden">
@@ -842,7 +905,7 @@ function MainLayout() {
       </section>
 
       {/* 8.5. Headquarters Location Map */}
-      <section className="relative w-full h-[70vh] min-h-[600px] bg-white overflow-hidden border-b-[0.5px] border-black/5">
+      <section className="relative w-full h-[70vh] min-h-[600px] bg-neutral-950 overflow-hidden">
         {/* Embedded Location Map */}
         <iframe 
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13418.156557613563!2d-92.24729096738283!3d31.848529999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x862f1e2920fecbad%3A0xe3f1e1a5f6e80b43!2s683%20Hwy%20459%2C%20Olla%2C%20LA%2071465!5e0!3m2!1sen!2sus!4v1713292415177!5m2!1sen!2sus" 
