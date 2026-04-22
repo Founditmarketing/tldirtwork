@@ -229,6 +229,7 @@ function MainLayout() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingPhase, setLoadingPhase] = useState(0);
   const [hoveredService, setHoveredService] = useState('Dirtwork & Excavation');
+  const [heroPhase, setHeroPhase] = useState(0);
   
   const serviceImages = {
     'Dirtwork & Excavation': '/t&ldirtwork.jpeg',
@@ -242,6 +243,13 @@ function MainLayout() {
     "EXCAVATION",
     "SITE PREP"
   ];
+
+  const heroWords = [
+    "SITE PREPARATION",
+    "HEAVY HAULING",
+    "EXCAVATION"
+  ];
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -288,6 +296,13 @@ function MainLayout() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const heroInterval = setInterval(() => {
+      setHeroPhase(prev => (prev + 1) % heroWords.length);
+    }, 3000);
+    return () => clearInterval(heroInterval);
+  }, [heroWords.length]);
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white font-sans overflow-x-hidden flex flex-col">
@@ -615,9 +630,27 @@ function MainLayout() {
             transition={{ duration: 0.8, delay: isLoading ? 0 : 1.4, ease: "easeOut" }}
             className="font-heading font-black text-4xl sm:text-5xl md:text-6xl lg:text-[64px] leading-[0.9] tracking-tighter mb-4 uppercase"
           >
-            YOUR TRUSTED DIRTWORK<br />
-            PARTNER FOR OVER<br />
-            <span className="text-bronze">24 YRS</span>
+            YOUR TRUSTED PARTNER<br />
+            FOR PROFESSIONAL<br />
+            <span className="text-bronze inline-grid">
+              <span className="col-start-1 row-start-1 invisible">
+                SITE PREPARATION
+              </span>
+              <span className="col-start-1 row-start-1 relative">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={heroPhase}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+                    className="absolute left-0 top-0 whitespace-nowrap"
+                  >
+                    {heroWords[heroPhase]}
+                  </motion.span>
+                </AnimatePresence>
+              </span>
+            </span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
