@@ -53,3 +53,9 @@ h1, h2, h3, h4, h5, h6 {
 .bg-texture-dark {
   background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm20 20h20v20H20V20zM0 20h20v20H0V20z' fill='%23111111' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
 }
+
+@keyframes sweep {
+  0% { transform: translateX(-200%); }
+  50% { transform: translateX(200%); }
+  100% { transform: translateX(200%); }
+}

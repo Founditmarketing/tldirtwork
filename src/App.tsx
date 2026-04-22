@@ -72,8 +72,28 @@ const FloatingContactWidget = () => {
 
   return (
     <>
-      {/* Floating Button & Tooltip Wrapper */}
-      <div className="fixed bottom-6 right-4 sm:right-6 z-50 flex flex-col items-end">
+      {/* Mobile Sticky Bottom Bar (Elevated Floating Component) */}
+      <div className="flex md:hidden fixed bottom-0 left-0 right-0 z-50 h-[60px] border-t border-bronze/40 overflow-hidden bg-black/80 backdrop-blur-xl">
+         <a href="tel:3189925948" className="flex-1 flex items-center justify-center bg-black hover:bg-neutral-900 active:bg-neutral-800 text-white font-heading font-black tracking-[0.1em] uppercase text-[13px] sm:text-[15px] transition-colors relative overflow-hidden group">
+            <Phone size={16} className="mr-3 text-bronze z-10 filter drop-shadow-[0_0_5px_rgba(167,54,2,0.8)]" /> 
+            <span className="z-10">CALL NOW</span>
+         </a>
+         <button 
+           onClick={() => { setIsOpen(!isOpen); setShowTooltip(false); }} 
+           className="w-[60px] flex items-center justify-center bg-[#a73602] hover:bg-[#852b01] active:scale-95 text-white border-l border-black/20 shrink-0 transform transition-all duration-300"
+         >
+            <motion.div 
+              initial={{ rotate: 0 }} 
+              animate={{ rotate: isOpen ? 90 : 0 }} 
+              transition={{ duration: 0.2 }}
+            >
+               {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
+            </motion.div>
+         </button>
+      </div>
+
+      {/* Desktop Floating Button & Tooltip Wrapper */}
+      <div className="hidden md:flex fixed bottom-6 right-6 z-50 flex-col items-end">
         {/* Tooltip Notification */}
         <AnimatePresence>
           {showTooltip && !isOpen && (
@@ -265,38 +285,24 @@ function MainLayout() {
             transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center overflow-hidden px-4"
           >
-            <div className="relative inline-flex flex-col items-center justify-center px-6 md:px-16 pb-6 md:pb-8 pt-2">
-              <div className="relative h-12 md:h-20 flex items-center justify-center w-full min-w-max">
-                 <div className="flex items-center text-left">
-                   <span className="font-heading font-black text-sm sm:text-2xl md:text-4xl tracking-[0.2em] text-white uppercase whitespace-nowrap z-10 relative">
-                      DELIVERING EXPERT&nbsp;
-                   </span>
-                   <div className="relative h-12 md:h-20 flex items-center justify-start min-w-[170px] sm:min-w-[240px] md:min-w-[380px]">
-                      <AnimatePresence mode="popLayout">
-                        <motion.div
-                          key={loadingPhase}
-                          initial={{ opacity: 0, y: 30 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -30 }}
-                          transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-                          className="absolute left-0 font-heading font-black text-sm sm:text-2xl md:text-4xl tracking-[0.2em] text-bronze uppercase whitespace-nowrap"
-                        >
-                          {loadingWords[loadingPhase]}
-                        </motion.div>
-                      </AnimatePresence>
-                   </div>
-                 </div>
-              </div>
-              
-              {/* Underline Load Bar */}
-              <div className="absolute bottom-0 left-0 md:h-[2px] h-[1px] w-full bg-white/10 overflow-hidden rounded-full">
-                <motion.div 
-                  initial={{ x: "-100%" }}
-                  animate={{ x: "0%" }}
-                  transition={{ duration: 3.6, ease: "linear" }}
-                  className="absolute inset-0 bg-bronze opacity-60 shadow-[0_0_8px_rgba(191,135,79,0.3)] rounded-full"
-                />
-              </div>
+            <div className="relative inline-flex flex-row items-center justify-center px-6 md:px-16 pb-0 pt-0">
+               <span className="font-heading font-black text-sm sm:text-2xl md:text-4xl tracking-[0.2em] text-white uppercase whitespace-nowrap">
+                  DELIVERING EXPERT&nbsp;
+               </span>
+               <div className="relative h-12 md:h-24 flex items-center justify-start w-[140px] sm:w-[250px] md:w-[400px]">
+                  <AnimatePresence mode="popLayout">
+                    <motion.div
+                      key={loadingPhase}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -30 }}
+                      transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+                      className="absolute left-0 font-heading font-black text-sm sm:text-2xl md:text-4xl tracking-[0.2em] text-bronze uppercase whitespace-nowrap"
+                    >
+                      {loadingWords[loadingPhase]}
+                    </motion.div>
+                  </AnimatePresence>
+               </div>
             </div>
           </motion.div>
         )}
@@ -955,7 +961,7 @@ function MainLayout() {
         </div>
 
         {/* Copyright */}
-        <div className="max-w-[1600px] mx-auto px-8 py-8 flex flex-col md:flex-row items-center justify-between text-neutral-600 text-xs font-light">
+        <div className="max-w-[1600px] mx-auto px-8 py-8 md:pb-8 pb-24 flex flex-col md:flex-row items-center justify-between text-neutral-600 text-xs font-light">
           <p>&copy; {new Date().getFullYear()} T & L Dirtwork, Inc. All Rights Reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
