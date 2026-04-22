@@ -104,8 +104,8 @@ export default function Reviews() {
 
       {/* Hero CTA Block Recycled */}
       <section className="relative py-32 bg-black overflow-hidden flex items-center justify-center border-t border-bronze/30">
-        <div className="absolute inset-0 opacity-30 overflow-hidden text-center flex justify-center">
-          <motion.img style={{ y: ctaImageY }} src="/t&ldirtworkgallery4.png" alt="Machinery background" className="absolute w-full h-[150%] -top-[25%] object-cover object-center" referrerPolicy="no-referrer" />
+        <div className="absolute inset-0 opacity-30 overflow-hidden bg-black flex justify-center">
+          <motion.img style={{ y: ctaImageY }} src="/t&ldirtworkgallery4.png" alt="Machinery background" className="absolute w-full h-[200%] -top-[50%] object-cover object-center" referrerPolicy="no-referrer" />
           <div className="absolute inset-0 bg-black/60 mix-blend-multiply"></div>
         </div>
         

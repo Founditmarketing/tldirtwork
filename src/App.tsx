@@ -988,8 +988,8 @@ function MainLayout() {
 
       {/* 8. Call to Action */}
       <section className="relative py-32 bg-black overflow-hidden flex items-center justify-center border-y border-bronze/30">
-        <div className="absolute inset-0 opacity-40 overflow-hidden">
-          <motion.img style={{ y: ctaImageY }} src="/t&ldirtworkimage3.jpeg" alt="Sunset Port" className="absolute left-0 w-full h-[130%] -top-[15%] object-cover" referrerPolicy="no-referrer" />
+        <div className="absolute inset-0 opacity-40 overflow-hidden bg-black flex justify-center">
+          <motion.img style={{ y: ctaImageY }} src="/t&ldirtworkimage3.jpeg" alt="Sunset Port" className="absolute left-0 w-full h-[180%] -top-[40%] object-cover" referrerPolicy="no-referrer" />
           <div className="absolute inset-0 bg-black/60 mix-blend-multiply"></div>
         </div>
         

@@ -100,8 +100,8 @@ export default function Dirtwork() {
 
       {/* CTA Section (Recycled Template Component) */}
       <section className="relative py-32 bg-black overflow-hidden flex items-center justify-center border-y border-bronze/30">
-        <div className="absolute inset-0 opacity-40 overflow-hidden text-center flex justify-center">
-          <motion.img style={{ y: ctaImageY }} src="/t&ldirtworkimage3.jpeg" alt="Machinery Silhouette" className="absolute w-full h-[150%] -top-[25%] object-cover object-center" referrerPolicy="no-referrer" />
+        <div className="absolute inset-0 opacity-40 overflow-hidden bg-black flex justify-center">
+          <motion.img style={{ y: ctaImageY }} src="/t&ldirtworkimage3.jpeg" alt="Machinery Silhouette" className="absolute w-full h-[200%] -top-[50%] object-cover object-center" referrerPolicy="no-referrer" />
           <div className="absolute inset-0 bg-black/60 mix-blend-multiply"></div>
         </div>
         
