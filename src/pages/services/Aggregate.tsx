@@ -101,7 +101,7 @@ export default function Aggregate() {
       {/* CTA Section (Recycled Template Component) */}
       <section className="relative py-32 bg-black overflow-hidden flex items-center justify-center border-y border-bronze/30">
         <div className="absolute inset-0 opacity-40 overflow-hidden bg-black flex justify-center">
-          <motion.img style={{ y: ctaImageY }} src="/t&ldirtworkimage3.jpeg" alt="Machinery Silhouette" className="absolute w-full h-[200%] -top-[50%] object-cover object-center" referrerPolicy="no-referrer" />
+          <motion.img style={{ y: ctaImageY, height: 'calc(100% + 1200px)', top: '-600px' }} src="/t&ldirtworkimage3.jpeg" alt="Machinery Silhouette" className="absolute w-full left-0 object-cover object-center" referrerPolicy="no-referrer" />
           <div className="absolute inset-0 bg-black/60 mix-blend-multiply"></div>
         </div>
         
