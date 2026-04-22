@@ -197,6 +197,12 @@ function MainLayout() {
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingPhase, setLoadingPhase] = useState(0);
+  const loadingPhrases = [
+    "PREPARING YOUR SITE...",
+    "DEPLOYING HEAVY EQUIPMENT...",
+    "LAYING THE GROUNDWORK..."
+  ];
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -211,10 +217,21 @@ function MainLayout() {
   const { scrollY } = useScroll();
 
   useEffect(() => {
+    const totalDuration = 3600;
+    const intervalDuration = totalDuration / loadingPhrases.length;
+    
+    const interval = setInterval(() => {
+      setLoadingPhase(prev => Math.min(prev + 1, loadingPhrases.length - 1));
+    }, intervalDuration);
+
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
-    return () => clearTimeout(timer);
+    }, totalDuration + 200);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timer);
+    };
   }, []);
   const heroY = useTransform(scrollY, [0, 1000], [0, 300]);
   const sectionBgY = useTransform(scrollY, [0, 6000], ["-40%", "40%"]);
@@ -242,34 +259,36 @@ function MainLayout() {
       <AnimatePresence>
         {isLoading && (
           <motion.div 
-            key="loader-bg"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="fixed inset-0 z-[100] bg-[#0a0a0a] flex items-center overflow-hidden px-8 md:px-16 lg:px-24"
+            key="loader"
+            initial={{ y: 0 }}
+            exit={{ y: "-100%" }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+            className="fixed inset-0 z-[100] bg-[#0a0a0a] flex flex-col items-center justify-center overflow-hidden px-4"
           >
-            <div className="w-full max-w-7xl mx-auto flex items-center justify-center gap-8 md:gap-12">
-              {/* Logo Area (approx 1/4) */}
-              <div className="w-1/3 md:w-1/4 flex justify-end">
-                <motion.img 
-                  layoutId="main-logo"
-                  src="/newt&llogo.png" 
-                  alt="T & L Dirtwork, Inc." 
-                  className="w-full max-w-[200px] object-contain origin-right"
-                  transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-                />
+            <div className="relative inline-flex flex-col items-center justify-center px-6 md:px-16 pb-6 md:pb-8 pt-2">
+              <div className="relative h-12 md:h-20 flex items-center justify-center overflow-hidden w-[300px] sm:w-[450px] md:w-[700px]">
+                <AnimatePresence mode="popLayout">
+                  <motion.div
+                    key={loadingPhase}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -30 }}
+                    transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+                    className="absolute font-heading font-black text-xs sm:text-base md:text-2xl tracking-[0.2em] text-bronze uppercase text-center whitespace-nowrap"
+                  >
+                    {loadingPhrases[loadingPhase]}
+                  </motion.div>
+                </AnimatePresence>
               </div>
               
-              {/* Load Bar Area (approx 3/4) */}
-              <div className="w-2/3 md:w-3/4 flex justify-start items-center">
-                <div className="h-[2px] w-full bg-white/10 overflow-hidden rounded-full relative">
-                  <motion.div 
-                    initial={{ x: "-100%" }}
-                    animate={{ x: "0%" }}
-                    transition={{ duration: 1.8, ease: "easeInOut" }}
-                    className="absolute inset-0 bg-bronze"
-                  />
-                </div>
+              {/* Underline Load Bar */}
+              <div className="absolute bottom-0 left-0 md:h-[2px] h-[1px] w-full bg-white/10 overflow-hidden rounded-full">
+                <motion.div 
+                  initial={{ x: "-100%" }}
+                  animate={{ x: "0%" }}
+                  transition={{ duration: 3.6, ease: "linear" }}
+                  className="absolute inset-0 bg-bronze shadow-[0_0_15px_rgba(191,135,79,0.8)] rounded-full"
+                />
               </div>
             </div>
           </motion.div>
@@ -277,7 +296,7 @@ function MainLayout() {
       </AnimatePresence>
 
       {/* 1. Header (Navigation) */}
-      <header className={`fixed top-0 left-0 right-0 z-[101] transition-all duration-300 ${isScrolled ? 'bg-black/95 backdrop-blur-md border-b-[0.5px] border-bronze/30 shadow-2xl' : 'bg-transparent border-b-[0.5px] border-bronze/20'}`}>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-black/95 backdrop-blur-md border-b-[0.5px] border-bronze/30 shadow-2xl' : 'bg-transparent border-b-[0.5px] border-bronze/20'}`}>
         {/* Mobile Top Nav */}
         <div className={`sm:hidden flex items-center justify-between px-4 transition-all duration-300 overflow-hidden text-[9px] tracking-widest text-bronze border-b border-bronze/20 ${isScrolled ? 'h-0 opacity-0 pointer-events-none' : 'h-[32px] py-1 opacity-100'}`}>
           <a href="tel:3189925948" className="flex items-center text-white/80 hover:text-white transition-colors">
@@ -318,20 +337,8 @@ function MainLayout() {
         <div className="flex items-center justify-between px-4 lg:px-8 py-4">
           <div className="flex items-center gap-4 lg:gap-8">
             {/* Logo Area */}
-            <Link to="/" className="flex items-center hover:opacity-80 transition-opacity relative z-[102]">
-              <div className={`flex items-center justify-center transition-all duration-300 ${isScrolled ? 'h-10 lg:h-10' : 'h-10 lg:h-14'}`}>
-                {!isLoading ? (
-                  <motion.img 
-                    layoutId="main-logo"
-                    src="/newt&llogo.png" 
-                    alt="T & L Dirtwork, Inc." 
-                    className="h-full w-auto object-contain"
-                    transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-                  />
-                ) : (
-                  <div className="w-24 lg:w-32 h-full opacity-0"></div>
-                )}
-              </div>
+            <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
+              <img src="/newt&llogo.png" alt="T & L Dirtwork, Inc." className={`h-10 w-auto object-contain transition-all duration-300 ${isScrolled ? 'lg:h-10' : 'lg:h-14'}`} />
               <div className="ml-4 h-[1px] w-12 bg-bronze hidden lg:block"></div>
             </Link>
             
@@ -369,7 +376,7 @@ function MainLayout() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: '100%' }}
               transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
-              className="fixed inset-0 w-full h-screen z-[105] bg-[#0a0a0a]/95 backdrop-blur-2xl flex flex-col p-8 border-l border-bronze/20 overflow-y-auto"
+              className="fixed inset-0 w-full h-screen z-[100] bg-[#0a0a0a]/95 backdrop-blur-2xl flex flex-col p-8 border-l border-bronze/20 overflow-y-auto"
             >
               <div className="flex items-center justify-between mb-12">
                 <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center hover:opacity-80 transition-opacity">
