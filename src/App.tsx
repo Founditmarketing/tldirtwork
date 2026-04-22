@@ -699,7 +699,7 @@ function MainLayout() {
           <div className="flex flex-col justify-center gap-6 relative w-full lg:w-1/2 items-center lg:items-end py-8">
              <div className="w-[90%] sm:w-[80%] lg:w-[85%] px-8 py-8 lg:px-12 flex flex-row items-center justify-between text-left bg-bronze/60 backdrop-blur-md shadow-[0_15px_50px_rgba(0,0,0,0.6)] rounded-none relative overflow-hidden border-none">
                 <span className="font-heading font-black text-5xl lg:text-6xl tracking-tighter text-white relative z-10 drop-shadow-md">
-                   <AnimatedCounter from={0} to={245} duration={2} />
+                   <AnimatedCounter from={0} to={245} duration={2} suffix="+" />
                 </span>
                 <span className="font-bold tracking-widest uppercase text-xs lg:text-sm text-white/90 relative z-10 ml-6 text-right drop-shadow-sm">Satisfied<br/>Clients</span>
              </div>
@@ -713,7 +713,7 @@ function MainLayout() {
              
              <div className="w-[90%] sm:w-[80%] lg:w-[75%] px-8 py-8 lg:px-12 flex flex-row items-center justify-between text-left bg-bronze/60 backdrop-blur-md shadow-[0_15px_50px_rgba(0,0,0,0.6)] rounded-none relative overflow-hidden border-none">
                 <span className="font-heading font-black text-5xl lg:text-6xl tracking-tighter text-white relative z-10 drop-shadow-md">
-                   <AnimatedCounter from={0} to={24} duration={1.5} />
+                   <AnimatedCounter from={0} to={24} duration={1.5} suffix="+" />
                 </span>
                 <span className="font-bold tracking-widest uppercase text-xs lg:text-sm text-white/90 relative z-10 ml-6 text-right drop-shadow-sm">Years<br/>Experience</span>
              </div>
