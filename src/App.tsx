@@ -220,6 +220,13 @@ function MainLayout() {
   const sectionBgY = useTransform(scrollY, [0, 6000], ["-40%", "40%"]);
   const smallParallaxY = useTransform(scrollY, [0, 6000], ["-15%", "15%"]);
 
+  const ctaRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: ctaScroll } = useScroll({
+    target: ctaRef,
+    offset: ["start end", "end start"]
+  });
+  const ctaImageY = useTransform(ctaScroll, [0, 1], ["-15%", "15%"]);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -764,9 +771,9 @@ function MainLayout() {
       </section>
 
       {/* 8. Call to Action */}
-      <section className="relative py-32 bg-black overflow-hidden flex items-center justify-center border-y border-bronze/30">
+      <section ref={ctaRef} className="relative py-32 bg-black overflow-hidden flex items-center justify-center border-y border-bronze/30">
         <div className="absolute inset-0 opacity-40 overflow-hidden">
-          <motion.img style={{ y: smallParallaxY }} src="/t&ldirtworkimage3.jpeg" alt="Sunset Port" className="absolute left-0 w-full h-[130%] -top-[15%] object-cover" referrerPolicy="no-referrer" />
+          <motion.img style={{ y: ctaImageY }} src="/t&ldirtworkimage3.jpeg" alt="Sunset Port" className="absolute left-0 w-full h-[130%] -top-[15%] object-cover" referrerPolicy="no-referrer" />
           <div className="absolute inset-0 bg-black/60 mix-blend-multiply"></div>
         </div>
         
