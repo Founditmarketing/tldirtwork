@@ -345,7 +345,7 @@ function MainLayout() {
         initial={{ opacity: 0, y: -20 }}
         animate={!isLoading ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
         transition={{ duration: 0.8, delay: isLoading ? 0 : 1.0, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${isScrolled ? 'bg-black/95 backdrop-blur-md border-b-[0.5px] border-bronze/30 shadow-2xl' : 'bg-transparent border-b-[0.5px] border-bronze/20'}`}
+        className={`fixed top-0 left-0 right-0 transition-colors duration-300 ${isScrolled ? 'bg-black/95 backdrop-blur-md border-b-[0.5px] border-bronze/30 shadow-2xl' : 'bg-transparent border-b-[0.5px] border-bronze/20'} ${isMobileMenuOpen ? 'z-[100]' : 'z-50'}`}
       >
         {/* Mobile Top Nav */}
         <div className={`sm:hidden flex items-center justify-between px-4 transition-all duration-300 overflow-hidden text-[9px] tracking-widest text-bronze border-b border-bronze/20 ${isScrolled ? 'h-0 opacity-0 pointer-events-none' : 'h-[32px] py-1 opacity-100'}`}>
@@ -505,7 +505,7 @@ function MainLayout() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: '100%' }}
               transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
-              className="fixed inset-0 w-full h-screen z-[100] bg-[#0a0a0a]/95 backdrop-blur-2xl flex flex-col p-8 border-l border-bronze/20 overflow-y-auto"
+              className="fixed inset-0 w-full h-screen z-[100] bg-[#0a0a0a] flex flex-col p-8 border-l border-bronze/20 overflow-y-auto"
             >
               <div className="flex items-center justify-between mb-12">
                 <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center hover:opacity-80 transition-opacity">
